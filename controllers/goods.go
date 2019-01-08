@@ -195,6 +195,29 @@ func (this *GoodsController)ShowList()  {
 	this.TplName = "list.html"
 }
 
+//处理搜索
+func (this *GoodsController)HandleSearch()  {
+	//获取数据
+	goodsName := this.GetString("goodsName")
+	o := orm.NewOrm()
+	var goods []models.GoodsSKU
+	//校验数据
+	if goodsName=="" {
+		o.QueryTable("GoodsSKU").All(&goods)
+		this.Data["goods"] = goods
+		ShowLaout(&this.Controller)
+		this.TplName = "search.html"
+		return
+	}
+
+	//处理数据
+	o.QueryTable("GoodsSKU").Filter("Name__icontains",goodsName).All(&goods)
+	//返回视图
+	this.Data["goods"]=goods
+	ShowLaout(&this.Controller)
+	this.TplName="search.html"
+}
+
 func PageTool(pageCount int, pageIndex int)[]int  {
 	var pages []int
 	if pageCount <= 5 {

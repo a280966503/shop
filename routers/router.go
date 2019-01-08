@@ -16,11 +16,14 @@ func init() {
 	beego.Router("/login", &controllers.UserController{},"get:ShowLogin;post:HandleLogin")
 	//跳转首页
 	beego.Router("/", &controllers.GoodsController{},"get:ShowIndex")
+
 	//商品详情展示
 	beego.Router("/goodsDetail",&controllers.GoodsController{},"get:ShowGoodsDetail")
-
 	//商品列表页
 	beego.Router("/goodsList",&controllers.GoodsController{},"get:ShowList")
+	//商品搜索
+	beego.Router("/goodsSearch",&controllers.GoodsController{},"post:HandleSearch")
+
 	//退出登录
 	beego.Router("/user/logout",&controllers.UserController{},"get:Logout")
 	//用户中心信息页

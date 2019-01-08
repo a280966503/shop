@@ -26,7 +26,7 @@
 					<a href="javascript:;" class="minus fr">-</a>	
 				</div> 
 			</div>
-			<div class="total">总价：<em>16.80元</em></div>
+			<div class="total">总价：<em>{{.goodsSku.Price}}元</em></div>
 			<div class="operate_btn">
 				<a href="javascript:;" class="buy_btn">立即购买</a>
 				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>				
@@ -65,4 +65,48 @@
 
 		</div>
 	</div>
+
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        updateGoodsPrice()
+        function updateGoodsPrice() {
+            //获取单价和数量
+            price = $('.show_pirze').children('em').text()
+            count = $('.num_show').val()
+
+            price = parseFloat(price)
+            count = parseInt(count)
+
+			total = price * count
+            //把总价更新
+            $('.total').children('em').text(total.toFixed(2)+'元')
+        }
+
+        //添加商品数量
+        $('.add').click(function () {
+
+            count = $('.num_show').val()
+            count = parseInt(count)+1
+            //展示数量
+            $('.num_show').val(count)
+            //更新总价
+            updateGoodsPrice()
+        })
+
+        //减少数量
+        $('.minus').click(function () {
+
+            count = $('.num_show').val()
+            count = parseInt(count)-1
+
+            if (count<1){
+                count=1
+            }
+            //展示数量
+            $('.num_show').val(count)
+            //更新总价
+            updateGoodsPrice()
+
+        })
+    </script>
 
